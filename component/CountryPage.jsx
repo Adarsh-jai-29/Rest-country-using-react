@@ -1,22 +1,49 @@
 import React, { useEffect, useState } from "react";
 import "./CountryPage.css";
 import { Link, useParams } from "react-router-dom";
+
 function CountryPage() {
-  // const countryName = new URLSearchParams(location.search).get("name");
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(false);
+  const [borderCountries, setBorderCountries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
   const params = useParams();
   const countryName = params.country;
 
-  console.log(countryName);
   useEffect(() => {
+    // setLoading(true);
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
       .then((res) => res.json())
       .then(([countryData]) => {
         setData(countryData);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError(true);
+        setLoading(false);
       });
-  }, []);
-  console.log(data);
+  }, [countryName]);
+
+  useEffect(() => {
+    if (data && data.borders) {
+      Promise.all(
+        data.borders.map((border) =>
+          fetch(`https://restcountries.com/v3.1/alpha/${border}`).then((res) =>
+            res.json()
+          )
+        )
+      ).then((borderCountriesData) => {
+        setBorderCountries(borderCountriesData.map(([country]) => country));
+      });
+    }
+  }, [data]);
+
+console.log(borderCountries)
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading country data.</div>;
+
   return (
     <>
       {data && (
@@ -26,7 +53,7 @@ function CountryPage() {
               <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
             </span>
             <div className="country-details">
-              <img src={data.flags.svg} alt={data.name} />
+              <img src={data.flags.svg} alt={data.name.common} />
               <div className="details-text-container">
                 <h1>{data.name.common}</h1>
                 <div className="details-text">
@@ -74,14 +101,15 @@ function CountryPage() {
                   {data.borders == undefined ? (
                     <div>No Border Country</div>
                   ) : (
-                    data.borders.map((border) => (
-                      <Link key={border} to={`/${border}`}>
-                        {border}
+                    borderCountries.map((borderCountry) => (
+                      <Link
+                        key={borderCountry.cca3}
+                        to={`/${borderCountry.name.common}`}
+                      >
+                        {borderCountry.name.common}
                       </Link>
                     ))
-                  )
-                  
-                  }
+                  )}
                 </div>
               </div>
             </div>

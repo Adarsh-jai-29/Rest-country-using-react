@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CountryCard from "./CountryCard";
 import Filter from "./Filter";
+import CountriesContainerShimmer from './CountriesContainerShimmer';
 
 export default function CountriesContainer({ query }) {
   const [countryData, SetCountryData] = useState([]);
@@ -15,6 +16,10 @@ export default function CountriesContainer({ query }) {
   console.log(countryData);
   return (
     <>
+{
+  countryData.length == 0 ?
+      <CountriesContainerShimmer />
+    :
       <div className="countries-container">
         {countryData
          .filter((data) => {
@@ -32,6 +37,9 @@ export default function CountriesContainer({ query }) {
           })
           }
       </div>
+    
+      
+      }
     </>
   );
 }

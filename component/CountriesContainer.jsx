@@ -33,6 +33,7 @@ export default function CountriesContainer({ query }) {
               svgFlag={country.flags.svg}
               capital={country.capital?.[0]}
               key = {country.name.common}
+              data = {country}
             />;
           })
           }

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./CountryPage.css";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useOutletContext, useParams } from "react-router-dom";
 
 function CountryPage() {
   const [data, setData] = useState(null);
   const [borderCountries, setBorderCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  const [isDark] = useOutletContext()
   const params = useParams();
   const countryName = params.country;
 
@@ -60,7 +60,7 @@ else{
   return (
     <>
       {data && (
-        <main>
+        <main className={`${isDark?"dark":''}`}>
           <div className="country-details-container">
             <span className="back-button" onClick={() => history.back()}>
               <i className="fa-solid fa-arrow-left"></i>&nbsp; Back

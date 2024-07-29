@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin-inline: auto;
   margin-top: 32px;
+  height: calc(90vh - 72.55px);
 }
 
 .back-button {

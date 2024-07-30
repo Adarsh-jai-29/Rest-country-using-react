@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CountryPage.css";
-import { Link, useLocation, useOutletContext, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext";
 
 function CountryPage() {
   const [data, setData] = useState(null);
   const [borderCountries, setBorderCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [isDark] = useOutletContext()
+  const [isDark] = useContext(ThemeContext)
   const params = useParams();
   const countryName = params.country;
 

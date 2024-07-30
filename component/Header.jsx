@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ThemeContext } from '../context/ThemeContext'
 
-export default function Header({theme}) {
-const [isDark,setIsDark] = theme
+export default function Header() {
+const [isDark,setIsDark] = useContext(ThemeContext)
 
 
   return (<>
@@ -15,7 +16,7 @@ const [isDark,setIsDark] = theme
       localStorage.setItem('DarkMode',!isDark)
     }}>
       <i className={`fa-regular fa-${isDark?"sun":"moon"}`} />
-      &nbsp;&nbsp;Dark Mode
+      &nbsp;{`${isDark?"Light":"Dark"} Mode`}
     </p>
   </div>
 </header>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./CountryPage.css";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
+import CountryPageShimmer from "./CountryPageShimmer";
 
 function CountryPage() {
   const [data, setData] = useState(null);
@@ -55,17 +56,17 @@ else{
 
   console.log(borderCountries);
 
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <CountryPageShimmer />
   if (error) return <div>Error loading country data.</div>;
-
   return (
     <>
-      {data && (
+
         <main className={`${isDark?"dark":''}`}>
           <div className="country-details-container">
             <span className="back-button" onClick={() => history.back()}>
               <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
             </span>
+         {   data == null ? <CountryPageShimmer /> : (
             <div className="country-details">
               {data.flags && (
                 <img src={data.flags.svg} alt={data.name.common} />
@@ -130,10 +131,10 @@ else{
                   )}
                 </div>
               </div>
-            </div>
+            </div>)}
           </div>
         </main>
-      )}
+      
     </>
   );
 }

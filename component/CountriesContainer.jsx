@@ -23,7 +23,7 @@ export default function CountriesContainer({ query }) {
       <div className="countries-container">
         {countryData
          .filter((data) => {
-             return data.name.common.toLowerCase().includes(query);
+             return data.name.common.toLowerCase().includes(query) || data.region.toLowerCase().includes(query);
           })
           .map((country) => {
            return <CountryCard

@@ -12,7 +12,7 @@ function Home() {
     <main className={`${isDark?"dark":''}`}>
     <div className="search-filter-container">
     <SearchBar setQuery={ setCountrySearch} />
-    <Filter />
+    <Filter setQuery={ setCountrySearch} />
     </div>
     <CountriesContainer query={ countrySearch} />
     </main>

@@ -1,12 +1,8 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 
 export default function Filter() {
-  const [region,setRegion] = useState('')
-  const selectedValue = (e)=>{console.log(e.target.value)}
   return (
-    <form>
-    <select className="filter-by-region" onChange={selectedValue}>
+    <select className="filter-by-region">
     <option hidden>Filter by Region</option>
     <option value="Africa">Africa</option>
     <option value="America">America</option>
@@ -14,6 +10,5 @@ export default function Filter() {
     <option value="Europe">Europe</option>
     <option value="Oceania">Oceania</option>
   </select>
-  </form>
   )
 }

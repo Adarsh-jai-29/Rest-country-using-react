@@ -23,9 +23,8 @@ export default function CountriesContainer({ query }) {
       <div className="countries-container">
         {countryData
          .filter((data) => {
-             return data.name.common.toLowerCase().includes(query) || data.region.toLowerCase().includes(query);
+             return data.name.common.toLowerCase().includes(query);
           })
-      // i think u can sort the data too based on name.common i.e = .sort((a,b)=>{a.name.common-b.name.common})
           .map((country) => {
            return <CountryCard
               countryName={country.name.common}

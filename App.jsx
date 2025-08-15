@@ -8,7 +8,7 @@ export default function App() {
   const [isDark,setIsDark]= useState(JSON.parse(localStorage.getItem("DarkMode")))
   
   return (
-    <ThemeContext.Provider value={[isDark,setIsDark]}>
+    <ThemeContext.Provider value={[isDark,setIsDark]} >
       <Header />
       <Outlet />
 
